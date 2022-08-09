@@ -5,13 +5,21 @@ Matrix::Matrix(int size) :
 {
 	_arr = new int* [_size];
 	for (int i{}; i < _size; ++i)
-		_arr[i] = new int[_size];
+		_arr[i] = new int[_size] {};
 }
 
-Matrix::Matrix(const Matrix& temp):
-	_size { temp._size },
-	_arr{ temp._arr }
-{}
+Matrix::Matrix(const Matrix& temp) :
+	_size{ temp._size }
+{
+	_arr = new int* [_size];
+	for (int i{}; i < this->_size; ++i)
+		_arr[i] = new int[_size];
+
+	for (int i{}; i < this->_size; ++i)
+		for (int j{}; j < this->_size; ++j)
+			_arr[i][j] = temp._arr[i][j];
+
+}
 
 Matrix::~Matrix()
 {
