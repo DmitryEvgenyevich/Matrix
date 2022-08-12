@@ -12,4 +12,7 @@ int main()
     std::cout << A.getValueByIndex(1, 1) << "\n\n";
     A.setValueByIndex(1, 1, 100);
     A.printAllArr();
+
+    A++.printAllArr();
+    A.printAllArr();
 }

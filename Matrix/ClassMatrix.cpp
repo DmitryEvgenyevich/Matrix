@@ -60,3 +60,56 @@ void Matrix::fill(int min, int max)
 		for (int j{}; j < this->_size; ++j)
 			this->_arr[i][j] = min + rand() % (max - min + 1);
 }
+
+Matrix& Matrix::operator++()
+{
+	for (int i{}; i < this->_size; ++i)
+	{
+		for (int j{}; j < this->_size; ++j)
+		{
+			++this->_arr[i][j];
+		}
+	}
+	return *this;
+}
+
+Matrix Matrix::operator++(int)
+{
+	Matrix temp = *this;
+
+	for (int i{}; i < this->_size; ++i)
+	{
+		for (int j{}; j < this->_size; ++j)
+		{
+			++this->_arr[i][j];
+		}
+	}
+	return temp;
+}
+
+Matrix& Matrix::operator--()
+{
+	for (int i{}; i < this->_size; ++i)
+	{
+		for (int j{}; j < this->_size; ++j)
+		{
+			--this->_arr[i][j];
+		}
+	}
+
+	return *this;
+}
+
+Matrix Matrix::operator--(int)
+{
+	Matrix temp = *this;
+
+	for (int i{}; i < this->_size; ++i)
+	{
+		for (int j{}; j < this->_size; ++j)
+		{
+			--this->_arr[i][j];
+		}
+	}
+	return temp;
+}
