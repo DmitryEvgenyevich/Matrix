@@ -37,17 +37,25 @@ public:
 	Matrix& operator--();
 	// Отнимает к каждому элементу массива 1 (Постфиксный)
 	Matrix operator--(int);
-
-
+	// Оператор присваивания копированием
 	Matrix& operator=(const Matrix& matrix);
+	// Оператор присваивания переносом
 	Matrix& operator=(Matrix&& matrix);
+	// Оператор сравнения равно
 	bool operator==(const Matrix& matrix) const;
+	// Оператор сравнения не равно
 	bool operator!=(const Matrix& matrix) const;
+	// Оператор сравнения меньше
 	bool operator<(const Matrix& matrix) const;
+	// Оператор сравнения больше
 	bool operator>(const Matrix& matrix) const;
+	// Оператор сравнения меньше или равно
 	bool operator<=(const Matrix& matrix) const;
+	// Оператор сравнения больше или равно
 	bool operator>=(const Matrix& matrix) const;
+	// Запрос одномерного массива из дувухмерного
 	int*& operator[](const int index1) const;
+	// Запрос значения по индексам
 	int operator()(const int index1, const int index2) const;
 };
 
