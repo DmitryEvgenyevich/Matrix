@@ -17,7 +17,7 @@ void Matrix::_newMemory()
 
 bool Matrix::_comparisonFunction(const Matrix& matrix, bool(*fun)(const int, const int)) const
 {
-	if (*this == matrix)
+	if (this == &matrix)
 		return 1;
 
 	for (int i{}; i < this->_size; ++i)
@@ -161,10 +161,8 @@ Matrix Matrix::operator--(int)
 
 Matrix& Matrix::operator=(const Matrix& matrix)
 {
-	this->_size = matrix._size;
-
 	this->_clearArr();
-	
+	this->_size = matrix._size;
 	this->_newMemory();
 
 	for (int i{}; i < this->_size; ++i)
@@ -172,6 +170,8 @@ Matrix& Matrix::operator=(const Matrix& matrix)
 		for (int j{}; j < this->_size; ++j)
 			this->_arr[i][j] = matrix._arr[i][j];
 	}
+
+	return *this;
 }
 
 Matrix& Matrix::operator=(Matrix&& matrix)
@@ -188,7 +188,7 @@ Matrix& Matrix::operator=(Matrix&& matrix)
 
 bool Matrix::operator==(const Matrix& matrix) const
 {
-	if (*this == matrix)
+	if (this == &matrix)
 		return 1;
 
 	for (int i{}; i < this->_size; ++i)
