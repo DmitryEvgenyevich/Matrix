@@ -6,14 +6,21 @@ class Matrix
 private:
 	int _size;
 	int** _arr;
+	void _clearArr();
+	void _newMemory();
+	bool _comparisonFunction(const Matrix& matrix, bool(*fun)(const int, const int)) const;
+	
 
 public:
 	explicit Matrix(int size = 0);
 	Matrix(const Matrix& temp);
+	Matrix(Matrix&& temp);
 	~Matrix();
 
 	// Получить размер массива
 	int getSize() const;
+	// Сумма всего масива
+	int sumArr() const;
 	// Вывести весь массив
 	void printAllArr() const;
 	// Присвоить значение value по индексам index и index2
@@ -31,4 +38,20 @@ public:
 	// Отнимает к каждому элементу массива 1 (Постфиксный)
 	Matrix operator--(int);
 
+
+	Matrix& operator=(const Matrix& matrix);
+	Matrix& operator=(Matrix&& matrix);
+	bool operator==(const Matrix& matrix) const;
+	bool operator!=(const Matrix& matrix) const;
+	bool operator<(const Matrix& matrix) const;
+	bool operator>(const Matrix& matrix) const;
+	bool operator<=(const Matrix& matrix) const;
+	bool operator>=(const Matrix& matrix) const;
+	int*& operator[](const int index1) const;
+	int operator()(const int index1, const int index2) const;
 };
+
+bool _isMoreMatrices(const int a, const int b);
+bool _isLessMatrices(const int a, const int b);
+bool _isMoreOrEqualMatrices(const int a, const int b);
+bool _isLessOrEqualMatrices(const int a, const int b);
