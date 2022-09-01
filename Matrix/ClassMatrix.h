@@ -1,65 +1,73 @@
 #pragma once
 #include <iostream>
 
+template<class T>
 class Matrix
 {
 private:
 	int _size;
-	int** _arr;
+	T** _arr;
 	void _clearArr();
 	void _newMemory();
-	bool _comparisonFunction(const Matrix& matrix, bool(*fun)(const int, const int)) const;
+	bool _comparisonFunction(const Matrix<T>& matrix, bool(*fun)(const int, const int)) const;
 	
 
 public:
 	explicit Matrix(int size = 0);
-	Matrix(const Matrix& temp);
-	Matrix(Matrix&& temp);
+	Matrix(const Matrix<T>& temp);
+	Matrix(Matrix<T>&& temp);
 	~Matrix();
 
 	// Получить размер массива
 	int getSize() const;
 	// Сумма всего масива
-	int sumArr() const;
+	T sumArr() const;
 	// Вывести весь массив
 	void printAllArr() const;
 	// Присвоить значение value по индексам index и index2
-	void setValueByIndex(int index, int index2, int value);
+	void setValueByIndex(int index, int index2, T value);
 	// Получить значение value по индексам index и index2
-	int getValueByIndex(int index, int index2) const;
+	T getValueByIndex(int index, int index2) const;
 	// Заполнение массива рандомными значениями с пределами 
-	void fill(int min = 0, int max = 10);
+	//void fill(T min, T max);
 	// Добовляет к каждому элементу массива 1 (Префиксный)
-	Matrix& operator++();
+	Matrix<T>& operator++();
 	// Добовляет к каждому элементу массива 1 (Постфиксный)
-	Matrix operator++(int);
+	Matrix<T> operator++(int);
 	// Отнимает к каждому элементу массива 1 (Префиксный)
-	Matrix& operator--();
+	Matrix<T>& operator--();
 	// Отнимает к каждому элементу массива 1 (Постфиксный)
-	Matrix operator--(int);
+	Matrix<T> operator--(int);
 	// Оператор присваивания копированием
-	Matrix& operator=(const Matrix& matrix);
+	Matrix<T>& operator=(const Matrix<T>& matrix);
 	// Оператор присваивания переносом
-	Matrix& operator=(Matrix&& matrix);
+	Matrix<T>& operator=(Matrix<T>&& matrix);
 	// Оператор сравнения равно
-	bool operator==(const Matrix& matrix) const;
+	bool operator==(const Matrix<T>& matrix) const;
 	// Оператор сравнения не равно
-	bool operator!=(const Matrix& matrix) const;
+	bool operator!=(const Matrix<T>& matrix) const;
 	// Оператор сравнения меньше
-	bool operator<(const Matrix& matrix) const;
+	bool operator<(const Matrix<T>& matrix) const;
 	// Оператор сравнения больше
-	bool operator>(const Matrix& matrix) const;
+	bool operator>(const Matrix<T>& matrix) const;
 	// Оператор сравнения меньше или равно
-	bool operator<=(const Matrix& matrix) const;
+	bool operator<=(const Matrix<T>& matrix) const;
 	// Оператор сравнения больше или равно
-	bool operator>=(const Matrix& matrix) const;
+	bool operator>=(const Matrix<T>& matrix) const;
 	// Запрос одномерного массива из дувухмерного
-	int*& operator[](const int index1) const;
+	T*& operator[](const int index1) const;
 	// Запрос значения по индексам
-	int operator()(const int index1, const int index2) const;
+	T operator()(const int index1, const int index2) const;
 };
 
-bool _isMoreMatrices(const int a, const int b);
-bool _isLessMatrices(const int a, const int b);
-bool _isMoreOrEqualMatrices(const int a, const int b);
-bool _isLessOrEqualMatrices(const int a, const int b);
+template<class T>
+bool _isMoreMatrices(const T a, const T b);
+
+template<class T>
+bool _isLessMatrices(const T a, const T b);
+
+template<class T>
+bool _isMoreOrEqualMatrices(const T a, const T b);
+
+template<class T>
+bool _isLessOrEqualMatrices(const T a, const T b);

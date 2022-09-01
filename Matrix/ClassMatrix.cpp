@@ -1,21 +1,24 @@
 #include "ClassMatrix.h"
 
 //------------ private ----------------
-void Matrix::_clearArr()
+template<class T>
+void Matrix<T>::_clearArr()
 {
 	for (int i{}; i < this->_size; ++i)
 		delete[] this->_arr[i];
 	delete[] this->_arr;
 }
 
-void Matrix::_newMemory()
+template<class T>
+void Matrix<T>::_newMemory()
 {
-	this->_arr = new int* [this->_size];
+	this->_arr = new T* [this->_size];
 	for (int i{}; i < this->_size; ++i)
-		this->_arr[i] = new int[this->_size] {};
+		this->_arr[i] = new T[this->_size] {};
 }
 
-bool Matrix::_comparisonFunction(const Matrix& matrix, bool(*fun)(const int, const int)) const
+template<class T>
+bool Matrix<T>::_comparisonFunction(const Matrix<T>& matrix, bool(*fun)(const int, const int)) const
 {
 	if (this == &matrix)
 		return 1;
@@ -31,25 +34,28 @@ bool Matrix::_comparisonFunction(const Matrix& matrix, bool(*fun)(const int, con
 }
 
 //------------ public -----------------
-Matrix::Matrix(int size) :
+template<class T>
+Matrix<T>::Matrix(int size) :
 	_size{ size }
 {
 	_newMemory();
 }
 
-Matrix::Matrix(const Matrix& temp) :
+template<class T>
+Matrix<T>::Matrix(const Matrix<T>& temp) :
 	_size{ temp._size }
 {
-	this->_arr = new int* [this->_size];
+	this->_arr = new T* [this->_size];
 	for (int i{}; i < this->_size; ++i)
 	{
-		this->_arr[i] = new int[_size];
+		this->_arr[i] = new T[_size];
 		for (int j{}; j < this->_size; ++j)
 			this->_arr[i][j] = temp._arr[i][j];
 	}		
 }
 
-Matrix::Matrix(Matrix&& temp) :
+template<class T>
+Matrix<T>::Matrix(Matrix<T>&& temp) :
 	_size{ temp._size }
 {
 	this->_arr = temp._arr;
@@ -57,18 +63,21 @@ Matrix::Matrix(Matrix&& temp) :
 	temp._arr = nullptr;
 }
 
-Matrix::~Matrix()
+template<class T>
+Matrix<T>::~Matrix()
 {
 	if (this->_arr != nullptr)
 		this->_clearArr();
 }
 
-int Matrix::getSize() const
+template<class T>
+int Matrix<T>::getSize() const
 {
 	return this->_size;
 }
 
-int Matrix::sumArr() const
+template<class T>
+T Matrix<T>::sumArr() const
 {
 	int temp{};
 	for (int i{}; i < this->_size; ++i)
@@ -78,7 +87,8 @@ int Matrix::sumArr() const
 	return temp;
 }
 
-void Matrix::printAllArr() const
+template<class T>
+void Matrix<T>::printAllArr() const
 {
 	for (int i{}; i < this->_size; ++i)
 	{
@@ -89,24 +99,28 @@ void Matrix::printAllArr() const
 	std::cout << "\n";
 }
 
-void Matrix::setValueByIndex(int index, int index2, int value)
+template<class T>
+void Matrix<T>::setValueByIndex(int index, int index2, T value)
 {
 	this->_arr[index][index2] = value;
 }
 
-int Matrix::getValueByIndex(int index, int index2) const
+template<class T>
+T Matrix<T>::getValueByIndex(int index, int index2) const
 {
 	return this->_arr[index][index2];
 }
 
-void Matrix::fill(int min, int max)
-{
-	for (int i{}; i < this->_size; ++i)
-		for (int j{}; j < this->_size; ++j)
-			this->_arr[i][j] = min + rand() % (max - min + 1);
-}
+//template<class T>
+//void Matrix<T>::fill(T min, T max)
+//{
+//	for (int i{}; i < this->_size; ++i)
+//		for (int j{}; j < this->_size; ++j)
+//			this->_arr[i][j] = min + rand() % (max - min + 1);
+//}
 
-Matrix& Matrix::operator++()
+template<class T>
+Matrix<T>& Matrix<T>::operator++()
 {
 	for (int i{}; i < this->_size; ++i)
 	{
@@ -118,7 +132,8 @@ Matrix& Matrix::operator++()
 	return *this;
 }
 
-Matrix Matrix::operator++(int)
+template<class T>
+Matrix<T> Matrix<T>::operator++(int)
 {
 	Matrix temp = *this;
 
@@ -132,7 +147,8 @@ Matrix Matrix::operator++(int)
 	return temp;
 }
 
-Matrix& Matrix::operator--()
+template<class T>
+Matrix<T>& Matrix<T>::operator--()
 {
 	for (int i{}; i < this->_size; ++i)
 	{
@@ -145,7 +161,8 @@ Matrix& Matrix::operator--()
 	return *this;
 }
 
-Matrix Matrix::operator--(int)
+template<class T>
+Matrix<T> Matrix<T>::operator--(int)
 {
 	Matrix temp = *this;
 
@@ -159,7 +176,8 @@ Matrix Matrix::operator--(int)
 	return temp;
 }
 
-Matrix& Matrix::operator=(const Matrix& matrix)
+template<class T>
+Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix)
 {
 	this->_clearArr();
 	this->_size = matrix._size;
@@ -174,7 +192,8 @@ Matrix& Matrix::operator=(const Matrix& matrix)
 	return *this;
 }
 
-Matrix& Matrix::operator=(Matrix&& matrix)
+template<class T>
+Matrix<T>& Matrix<T>::operator=(Matrix<T>&& matrix)
 {
 	this->_size = matrix._size;
 
@@ -186,7 +205,8 @@ Matrix& Matrix::operator=(Matrix&& matrix)
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator==(const Matrix<T>& matrix) const
 {
 	if (this == &matrix)
 		return 1;
@@ -201,59 +221,70 @@ bool Matrix::operator==(const Matrix& matrix) const
 	return 1;
 }
 
-bool Matrix::operator!=(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator!=(const Matrix<T>& matrix) const
 {
 	return !(*this == matrix);
 }
 
-bool Matrix::operator<(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator<(const Matrix<T>& matrix) const
 {
 	return this->_comparisonFunction(matrix, _isLessMatrices);
 }
 
-bool Matrix::operator>(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator>(const Matrix<T>& matrix) const
 {
 	return this->_comparisonFunction(matrix, _isMoreMatrices);
 }
 
-bool Matrix::operator<=(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator<=(const Matrix<T>& matrix) const
 {
 	return this->_comparisonFunction(matrix, _isLessOrEqualMatrices);
 }
 
-bool Matrix::operator>=(const Matrix& matrix) const
+template<class T>
+bool Matrix<T>::operator>=(const Matrix<T>& matrix) const
 {
 	return this->_comparisonFunction(matrix, _isMoreOrEqualMatrices);
 }
 
-int*& Matrix::operator[](const int index1) const
+template<class T>
+T*& Matrix<T>::operator[](const int index1) const
 {
 	return this->_arr[index1];
 }
 
-int Matrix::operator()(const int index1, const int index2) const
+template<class T>
+T Matrix<T>::operator()(const int index1, const int index2) const
 {
 	return this->_arr[index1][index2];
 }
 
 //------------ add fun ----------------
 
-bool _isLessMatrices(const int a, const int b)
+template<class T>
+bool _isLessMatrices(const T a, const T b)
 {
 	return (a < b);
 }
 
-bool _isMoreMatrices(const int a, const int b)
+template<class T>
+bool _isMoreMatrices(const T a, const T b)
 {
 	return (a > b);
 }
 
-bool _isLessOrEqualMatrices(const int a, const int b)
+template<class T>
+bool _isLessOrEqualMatrices(const T a, const T b)
 {
 	return (a <= b);
 }
 
-bool _isMoreOrEqualMatrices(const int a, const int b)
+template<class T>
+bool _isMoreOrEqualMatrices(const T a, const T b)
 {
 	return (a >= b);
 }

@@ -5,15 +5,26 @@ int main()
 {
     srand(time(0));
 
-    Matrix A{ 5 };
-    Matrix B{ 10 };
-    Matrix C{ Matrix{ 4 } };
+    Matrix<int> A{ 5 };
+    Matrix<int> B{ 10 };
+    Matrix<int> C{ Matrix<int>{ 4 } };
     std::cout << A.getSize() << "\n\n";
 
-    A.fill(5, 8);
-    B = Matrix{ 8 };
-    B.fill(5, 8);
-    C.fill(5, 8);
+    //A.fill(5, 8);
+    for (int i{}; i < A.getSize(); ++i)
+        for (int j{}; j < A.getSize(); ++j)
+            A.setValueByIndex(i, j, 0 + rand() % (10 - 0 + 1));
+
+    B = Matrix<int>{ 8 };
+    //B.fill(5, 8);
+    for (int i{}; i < B.getSize(); ++i)
+        for (int j{}; j < B.getSize(); ++j)
+            B.setValueByIndex(i, j, 0 + rand() % (10 - 0 + 1));
+
+    //C.fill(5, 8);
+    for (int i{}; i < C.getSize(); ++i)
+        for (int j{}; j < C.getSize(); ++j)
+            C.setValueByIndex(i, j, 0 + rand() % (10 - 0 + 1));
 
     std::cout << "A:\n";
     A.printAllArr();

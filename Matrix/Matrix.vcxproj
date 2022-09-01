@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="ClassMatrix.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Templates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassMatrix.h" />
